@@ -123,7 +123,8 @@ public class BedWars extends JavaPlugin {
     private static Chat chat = new NoChat();
     protected static Level level;
     private static Economy economy;
-    private static final String version = detectServerVersion();
+    private static final String minecraftVersion = detectMinecraftVersion();
+    private static final String version = detectSupportVersion();
     private static String lobbyWorld = "";
     private static boolean shuttingDown = false;
 
@@ -136,7 +137,7 @@ public class BedWars extends JavaPlugin {
 
     private static com.andrei1058.bedwars.api.BedWars api;
 
-    private static String detectServerVersion() {
+    private static String detectMinecraftVersion() {
         String[] packageParts = Bukkit.getServer().getClass().getPackage().getName().split("\\.");
         String craftBukkitRevision = packageParts[packageParts.length - 1];
         if (craftBukkitRevision.matches("v\\d+_\\d+_R\\d+")) {
@@ -144,8 +145,17 @@ public class BedWars extends JavaPlugin {
         }
 
         String bukkitVersion = Bukkit.getBukkitVersion();
-        int buildSuffix = bukkitVersion.indexOf('-');
-        return buildSuffix < 0 ? bukkitVersion : bukkitVersion.substring(0, buildSuffix);
+        java.util.regex.Matcher minecraftVersion = java.util.regex.Pattern
+                .compile("^(\\d+\\.\\d+(?:\\.\\d+)?)(?:[-.]|$)")
+                .matcher(bukkitVersion);
+        return minecraftVersion.find() ? minecraftVersion.group(1) : bukkitVersion;
+    }
+
+    private static String detectSupportVersion() {
+        if (minecraftVersion.matches("v\\d+_\\d+_R\\d+")) {
+            return minecraftVersion;
+        }
+        return "v" + minecraftVersion.replace('.', '_');
     }
 
     @Override
@@ -173,7 +183,7 @@ public class BedWars extends JavaPlugin {
             supp = Class.forName("com.andrei1058.bedwars.support.version." + version + "." + version);
         } catch (ClassNotFoundException e) {
             serverSoftwareSupport = false;
-            this.getLogger().severe("I can't run on your version: " + version);
+            this.getLogger().severe("No internal version support module is available for Minecraft " + minecraftVersion + ".");
             return;
         }
 
@@ -191,7 +201,7 @@ public class BedWars extends JavaPlugin {
             return;
         }
 
-        this.getLogger().info("Loading support for paper/spigot: " + version);
+        this.getLogger().info("Loading support for paper/spigot: " + minecraftVersion);
 
         // Setup languages
         new English();
