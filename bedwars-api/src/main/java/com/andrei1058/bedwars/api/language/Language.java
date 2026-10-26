@@ -32,6 +32,7 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.function.BiFunction;
 
 public class Language extends ConfigManager {
 
@@ -41,6 +42,7 @@ public class Language extends ConfigManager {
     private static final HashMap<UUID, Language> langByPlayer = new HashMap<>();
     private static final List<Language> languages = new ArrayList<>();
     private static Language defaultLanguage;
+    private static volatile BiFunction<Player, String, String> placeholderReplacer = (player, message) -> message;
     private String serverIp;
 
     public Language(Plugin plugin, String iso) {
@@ -148,8 +150,20 @@ public class Language extends ConfigManager {
         if (player == null) {
             return getDefaultLanguage().m(path);
         }
-        return langByPlayer.getOrDefault(player.getUniqueId(), getDefaultLanguage())
+        String message = langByPlayer.getOrDefault(player.getUniqueId(), getDefaultLanguage())
                 .m(path).replace("{prefix}", (prefixStatic == null ? "" : prefixStatic));
+        return applyPlaceholders(player, message);
+    }
+
+    public static String applyPlaceholders(Player player, String message) {
+        return player == null ? message : placeholderReplacer.apply(player, message);
+    }
+
+    /**
+     * Set an optional per-player text replacement hook.
+     */
+    public static void setPlaceholderReplacer(BiFunction<Player, String, String> replacer) {
+        placeholderReplacer = Objects.requireNonNull(replacer, "replacer");
     }
 
     /**
@@ -174,7 +188,12 @@ public class Language extends ConfigManager {
      * Get a string list in player's language.
      */
     public static List<String> getList(@NotNull Player player, String path) {
-        return langByPlayer.getOrDefault(player.getUniqueId(), getDefaultLanguage()).l(path);
+        List<String> lines = langByPlayer.getOrDefault(player.getUniqueId(), getDefaultLanguage()).l(path);
+        List<String> result = new ArrayList<>(lines.size());
+        for (String line : lines) {
+            result.add(applyPlaceholders(player, line));
+        }
+        return result;
     }
 
     @SuppressWarnings("unused")

@@ -156,7 +156,7 @@ public class MainCommand extends BukkitCommand implements ParentCommand {
             if (s instanceof Player) {
                 s.sendMessage(getMsg((Player) s, Messages.COMMAND_NOT_FOUND_OR_INSUFF_PERMS));
             } else {
-                s.sendMessage(Language.getDefaultLanguage().m(Messages.COMMAND_NOT_FOUND_OR_INSUFF_PERMS));
+                s.sendMessage(Language.applyPlaceholders(null, Language.getDefaultLanguage().m(Messages.COMMAND_NOT_FOUND_OR_INSUFF_PERMS)));
             }
         }
         return true;

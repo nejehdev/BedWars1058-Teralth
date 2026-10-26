@@ -66,7 +66,7 @@ public interface ISidebar {
     /**
      * @return true if tab formatting is disabled for current sidebar/ arena stage.
      */
-    @Deprecated(forRemoval = true)
+    @Deprecated
     boolean isTabFormattingDisabled();
 
     /**

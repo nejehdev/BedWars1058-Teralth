@@ -344,6 +344,7 @@ public class BedWarsTeam implements ITeam {
         }
         TeleportManager.teleportC(p, getSpawn(), PlayerTeleportEvent.TeleportCause.PLUGIN);
         p.setVelocity(new Vector(0, 0, 0));
+        p.setGameMode(GameMode.SURVIVAL);
         p.removePotionEffect(PotionEffectType.INVISIBILITY);
         nms.setCollide(p, arena, true);
         p.setAllowFlight(false);

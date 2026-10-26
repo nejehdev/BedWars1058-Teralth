@@ -107,13 +107,23 @@ public class PAPISupport extends PlaceholderExpansion {
             return "-";
         }
 
+        if ("current_mapname".equals(s)) {
+            IArena arena = player == null ? null : Arena.getArenaByPlayer(player);
+            return arena == null ? "NONE" : arena.getDisplayName();
+        }
+
+        if ("current_maxplayers".equals(s)) {
+            IArena arena = player == null ? null : Arena.getArenaByPlayer(player);
+            return arena == null ? "0" : String.valueOf(arena.getMaxPlayers());
+        }
+
         /* Player required placeholders */
         if (player == null) return null;
 
         // stats placeholders
         if(s.startsWith("stats_")) {
             String targetedStat = s.replaceFirst("stats_", "");
-            if(targetedStat.isEmpty() || targetedStat.isBlank()) {
+            if(targetedStat.trim().isEmpty()) {
                 return null;
             }
             PlayerStats stats = BedWars.getStatsManager().getUnsafe(player.getUniqueId());

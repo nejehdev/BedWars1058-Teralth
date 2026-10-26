@@ -40,6 +40,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static com.andrei1058.bedwars.BedWars.config;
 import static com.andrei1058.bedwars.BedWars.plugin;
@@ -48,8 +50,23 @@ import static com.andrei1058.bedwars.BedWars.plugin;
 public class InternalAdapter extends RestoreAdapter {
 
     public static File backupFolder = new File(BedWars.plugin.getDataFolder() + "/Cache");
+    private static final Set<String> cloningWorlds = ConcurrentHashMap.newKeySet();
+    private static final Set<String> failedWorldClones = ConcurrentHashMap.newKeySet();
+
     public InternalAdapter(Plugin plugin) {
         super(plugin);
+    }
+
+    public static boolean isCloningWorld(String worldName) {
+        return cloningWorlds.contains(worldName);
+    }
+
+    public static boolean didWorldCloneFail(String worldName) {
+        return failedWorldClones.contains(worldName);
+    }
+
+    public static void clearWorldCloneFailure(String worldName) {
+        failedWorldClones.remove(worldName);
     }
 
     @Override
@@ -204,12 +221,18 @@ public class InternalAdapter extends RestoreAdapter {
 
     @Override
     public void cloneArena(String name1, String name2) {
+        failedWorldClones.remove(name2);
+        cloningWorlds.add(name2);
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
                 FileUtils.copyDirectory(new File(Bukkit.getWorldContainer(), name1), new File(Bukkit.getWorldContainer(), name2));
                 deleteWorldTrash(name2);
             } catch (IOException e) {
+                failedWorldClones.add(name2);
+                getOwner().getLogger().severe("Could not clone world " + name1 + " to " + name2 + ".");
                 e.printStackTrace();
+            } finally {
+                cloningWorlds.remove(name2);
             }
         });
     }

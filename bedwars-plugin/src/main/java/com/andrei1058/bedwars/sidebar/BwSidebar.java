@@ -129,7 +129,7 @@ public class BwSidebar implements ISidebar {
 
         int teamCount = 0;
         Language language = Language.getPlayerLanguage(player);
-        String genericTeamFormat = language.m(Messages.FORMATTING_SCOREBOARD_TEAM_GENERIC);
+        String genericTeamFormat = Language.applyPlaceholders(player, language.m(Messages.FORMATTING_SCOREBOARD_TEAM_GENERIC));
 
         StatisticsOrdered.StringParser statParser = null == topStatistics ? null : topStatistics.newParser();
 
@@ -204,7 +204,7 @@ public class BwSidebar implements ISidebar {
                 }
 
                 if (null != this.topStatistics && null != statParser) {
-                    line = statParser.parseString(line, language, language.m(Messages.MEANING_NOBODY));
+                    line = statParser.parseString(line, language, Language.applyPlaceholders(player, language.m(Messages.MEANING_NOBODY)));
                     if (null == line) {
                         continue;
                     }
@@ -312,7 +312,7 @@ public class BwSidebar implements ISidebar {
 
             if (arena.isSpectator(player)) {
                 Language lang = getPlayerLanguage(player);
-                String targetFormat = lang.m(Messages.FORMAT_SPECTATOR_TARGET);
+                String targetFormat = Language.applyPlaceholders(player, lang.m(Messages.FORMAT_SPECTATOR_TARGET));
 
                 providers.add(new PlaceholderProvider("{spectatorTarget}", () -> {
                     if (null == player.getSpectatorTarget() || !(player.getSpectatorTarget() instanceof Player)) {

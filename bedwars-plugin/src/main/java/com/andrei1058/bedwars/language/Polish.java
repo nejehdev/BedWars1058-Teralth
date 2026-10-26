@@ -669,26 +669,26 @@ public class Polish extends Language{
 
         // start of TAB
         // main lobby tab format
-        yml.addDefault(Messages.FORMATTING_SB_TAB_LOBBY_HEADER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_LOBBY_HEADER, Arrays.asList(
                 "                                                                                                        ",
                 "&a{serverIp}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_LOBBY_FOOTER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_LOBBY_FOOTER, Arrays.asList(
                 "",
                 "&fThere are {on} players on this lobby",
                 "Powered by {poweredBy},&a{serverIp}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_LOBBY_PREFIX, List.of("{vPrefix}"));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_LOBBY_SUFFIX, List.of(" {level}"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_LOBBY_PREFIX, Arrays.asList("{vPrefix}"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_LOBBY_SUFFIX, Arrays.asList(" {level}"));
         // player waiting lobby
-        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_HEADER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_HEADER, Arrays.asList(
                 "                                                                                                        ",
                 "&a{serverIp}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_FOOTER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_FOOTER, Arrays.asList(
                 "",
                 "Waiting for more players,Waiting for more players.,Waiting for more players.., Waiting for more players...",
                 "&f{on}&a/&f{max}",
@@ -697,15 +697,15 @@ public class Polish extends Language{
                 "&fPowered by {poweredBy}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_PREFIX, List.of("{vPrefix}"));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_SUFFIX, List.of(" {level}"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_PREFIX, Arrays.asList("{vPrefix}"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_SUFFIX, Arrays.asList(" {level}"));
         // spectator waiting lobby
-        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_HEADER_SPEC, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_HEADER_SPEC, Arrays.asList(
                 "                                                                                                        ",
                 "&a{serverIp}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_FOOTER_SPEC, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_FOOTER_SPEC, Arrays.asList(
                 "",
                 "&7&oYou are spectating",
                 "Waiting for more players,Waiting for more players.,Waiting for more players.., Waiting for more players...",
@@ -715,17 +715,17 @@ public class Polish extends Language{
                 "&fPowered by {poweredBy}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_PREFIX_SPEC, List.of("{vPrefix}"));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_SUFFIX_SPEC, List.of(" {level}"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_PREFIX_SPEC, Arrays.asList("{vPrefix}"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_WAITING_SUFFIX_SPEC, Arrays.asList(" {level}"));
         // player starting lobby
-        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_HEADER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_HEADER, Arrays.asList(
                 "                                                                                                        ",
                 "&a{serverIp}",
                 "&7{date}",
                 "&7Map: &f{map} &7Mode: &f{group}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_FOOTER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_FOOTER, Arrays.asList(
                 "",
                 "&fStarting in &a{time} &fseconds,&fStarting in &a{time} &fseconds.,&fStarting in &a{time} &fseconds..,&fStarting in &a{time} &fseconds..",
                 "&f{on}&a/&f{max}",
@@ -734,17 +734,17 @@ public class Polish extends Language{
                 "&fPowered by {poweredBy}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_PREFIX, List.of("{vPrefix} "));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_SUFFIX, List.of(" {level}"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_PREFIX, Arrays.asList("{vPrefix} "));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_SUFFIX, Arrays.asList(" {level}"));
         // spectator starting lobby
-        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_HEADER_SPEC, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_HEADER_SPEC, Arrays.asList(
                 "                                                                                                        ",
                 "&a{serverIp}",
                 "&7{date}",
                 "&7Map: &f{map} &7Mode: &f{group}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_FOOTER_SPEC, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_FOOTER_SPEC, Arrays.asList(
                 "",
                 "&fStarting in &a{time} &fseconds,&fStarting in &a{time} &fseconds.,&fStarting in &a{time} &fseconds..,&fStarting in &a{time} &fseconds..",
                 "&f{on}&a/&f{max}",
@@ -753,10 +753,10 @@ public class Polish extends Language{
                 "&fPowered by {poweredBy}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_PREFIX_SPEC, List.of("{vPrefix} "));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_SUFFIX_SPEC, List.of(" {level}"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_PREFIX_SPEC, Arrays.asList("{vPrefix} "));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_STARTING_SUFFIX_SPEC, Arrays.asList(" {level}"));
         // player playing
-        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_HEADER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_HEADER, Arrays.asList(
                 "                                                                                                        ",
                 "&a{serverIp}",
                 "&7{date}",
@@ -765,17 +765,17 @@ public class Polish extends Language{
                 "{nextEvent} in {time}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_FOOTER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_FOOTER, Arrays.asList(
                 "",
                 "&fYou are playing on the {teamColor}{teamName} Team",
                 "&a{serverIp}",
                 "&fPowered by {poweredBy}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_PREFIX, List.of("{teamColor}{teamName} "));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_SUFFIX, List.of(" {vPrefix}", " {level}"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_PREFIX, Arrays.asList("{teamColor}{teamName} "));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_SUFFIX, Arrays.asList(" {vPrefix}", " {level}"));
         // player eliminated - playing state
-        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_ELM_HEADER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_ELM_HEADER, Arrays.asList(
                 "                                                                                                        ",
                 "&a{serverIp}",
                 "&7{date}",
@@ -785,17 +785,17 @@ public class Polish extends Language{
                 "",
                 "&7&oAYou've been eliminated,&f&oAYou've been eliminated"
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_ELM_FOOTER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_ELM_FOOTER, Arrays.asList(
                 "",
                 "&fYou have played in the {teamColor}{teamName} Team",
                 "&a{serverIp}",
                 "&fPowered by {poweredBy}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_ELM_PREFIX, List.of("&f&oSpectator "));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_ELM_SUFFIX, List.of(" &c&oEliminated {teamColor}&o{teamName}", " {teamColor}&oEliminated {vPrefix}", "{teamColor}&oEliminated {level}"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_ELM_PREFIX, Arrays.asList("&f&oSpectator "));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_ELM_SUFFIX, Arrays.asList(" &c&oEliminated {teamColor}&o{teamName}", " {teamColor}&oEliminated {vPrefix}", "{teamColor}&oEliminated {level}"));
         // spectator - playing state
-        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_SPEC_HEADER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_SPEC_HEADER, Arrays.asList(
                 "                                                                                                        ",
                 "&a{serverIp}",
                 "&7{date}",
@@ -804,21 +804,21 @@ public class Polish extends Language{
                 "{nextEvent} in {time}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_SPEC_FOOTER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_SPEC_FOOTER, Arrays.asList(
                 "",
                 "&fPowered by {poweredBy}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_SPEC_PREFIX, List.of("&f&oSpectator "));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_SPEC_SUFFIX, List.of(" {vPrefix}", " {level}"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_SPEC_PREFIX, Arrays.asList("&f&oSpectator "));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_PLAYING_SPEC_SUFFIX, Arrays.asList(" {vPrefix}", " {level}"));
         // winner alive - restarting state
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN1_HEADER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN1_HEADER, Arrays.asList(
                 "                                                                                                        ",
                 "&6⭐ {winnerTeamColor}&lYour team won the game! &6⭐",
                 "&7{date}", "&7Map: &f{map} &7Mode: &f{group}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN1_FOOTER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN1_FOOTER, Arrays.asList(
                 "",
                 "&6&lYou won in the {teamColor}&l{teamName} Team&6&l!,&6&lYou won in the {teamColor}&l{teamName} Team&6&l!,&f&lYou won in the {teamColor}&l{teamName} Team&f&l!",
                 "&7Statistics from this match",
@@ -829,17 +829,17 @@ public class Polish extends Language{
                 "&fPowered by {poweredBy}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN1_PREFIX, List.of("&6&l⭐ {teamColor}{teamName} "));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN1_SUFFIX, List.of(" {vPrefix}", " {level}"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN1_PREFIX, Arrays.asList("&6&l⭐ {teamColor}{teamName} "));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN1_SUFFIX, Arrays.asList(" {vPrefix}", " {level}"));
         // winner dead - restarting state
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN2_HEADER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN2_HEADER, Arrays.asList(
                 "                                                                                                        ",
                 "&6⭐ {winnerTeamColor}&l{winnerTeamName} Team won the game! &6⭐",
                 "&7{date}",
                 "&7Map: &f{map} &7Mode: &f{group}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN2_FOOTER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN2_FOOTER, Arrays.asList(
                 "",
                 "&6&lYou won in the {teamColor}&l{teamName} Team&6&l!,&6&lYou won in the {teamColor}&l{teamName} Team&6&l!,&f&lYou won in the {teamColor}&l{teamName} Team&f&l!",
                 "&7Statistics from this match",
@@ -850,17 +850,17 @@ public class Polish extends Language{
                 "&fPowered by {poweredBy}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN2_PREFIX, List.of("&6&l⭐ {teamColor}{teamName} "));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN2_SUFFIX, List.of(" {vPrefix}", " &c&oEliminated", " {level}", " &c&oEliminated"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN2_PREFIX, Arrays.asList("&6&l⭐ {teamColor}{teamName} "));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_WIN2_SUFFIX, Arrays.asList(" {vPrefix}", " &c&oEliminated", " {level}", " &c&oEliminated"));
         // loser - restarting state
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_ELM_HEADER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_ELM_HEADER, Arrays.asList(
                 "                                                                                                        ",
                 "&6⭐ {winnerTeamColor}&l{winnerTeamName} Team won the game! &6⭐",
                 "&7{date}",
                 "&7Map: &f{map} &7Mode: &f{group}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_ELM_FOOTER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_ELM_FOOTER, Arrays.asList(
                 "",
                 "&fYou have lost in the {teamColor}{teamName} Team",
                 "&7Statistics from this match",
@@ -870,10 +870,10 @@ public class Polish extends Language{
                 "&fPowered by {poweredBy}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_ELM_PREFIX, List.of("{teamColor}{teamName} "));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_ELM_SUFFIX, List.of(" {vPrefix}", " &c&oEliminated", " {level}", " &c&oEliminated"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_ELM_PREFIX, Arrays.asList("{teamColor}{teamName} "));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_ELM_SUFFIX, Arrays.asList(" {vPrefix}", " &c&oEliminated", " {level}", " &c&oEliminated"));
         // spectator - restarting state
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_SPEC_HEADER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_SPEC_HEADER, Arrays.asList(
                 "                                                                                                        ",
                 "&a{serverIp}",
                 "&6⭐ {winnerTeamColor}&l{winnerTeamName} Team won the game! &6⭐",
@@ -883,13 +883,13 @@ public class Polish extends Language{
                 "&fThanks for playing {player}!",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_SPEC_FOOTER, List.of(
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_SPEC_FOOTER, Arrays.asList(
                 "",
                 "&fPowered by {poweredBy}",
                 ""
         ));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_SPEC_PREFIX, List.of("&f&oSpectator "));
-        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_SPEC_SUFFIX, List.of(" {vPrefix}", " {level}"));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_SPEC_PREFIX, Arrays.asList("&f&oSpectator "));
+        yml.addDefault(Messages.FORMATTING_SB_TAB_RESTARTING_SPEC_SUFFIX, Arrays.asList(" {vPrefix}", " {level}"));
         // end of tab
 
         yml.addDefault(Messages.XP_REWARD_PER_MINUTE, "{prefix}&6+{xp} Otrzymano doswiedczenie BedWars (Czas grania).");

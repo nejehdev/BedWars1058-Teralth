@@ -15,7 +15,17 @@ Once your bed is destroyed, you cannot respawn.
 This software runs on [Spigot](https://www.spigotmc.org/) and NMS.
 Spigot forks without compiled NMS code are not supported.
 Officially supported servers are [spigot](https://www.spigotmc.org/) and [paper](https://papermc.io/).
-It is required to use **Java 11** or newer.
+The plugin core and API target Java 8 bytecode. The server must still run on the Java version required by its Minecraft release; version-specific support modules may require a newer JDK.
+
+When PlaceholderAPI is installed, its placeholders can be used in player-facing messages and item names/lore/commands. BedWars1058 also provides:
+- `%bw1058_current_mapname%`: the current arena's configured display name, or `NONE` when the player is not in an arena.
+- `%bw1058_current_maxplayers%`: the arena's maximum player count (team count multiplied by players per team), or `0` when the player is not in an arena.
+
+Players waiting to respawn fly in Adventure mode while hidden and non-collidable. Final eliminations use Spectator mode, with the configured spectator command items shown in a clickable menu.
+
+## Creating a release
+
+Create and push a version tag from GitHub Desktop (for example, `v25.2.1` or `25.2.1`). The release workflow builds the Maven project with that version and publishes the plugin JAR with automatically generated release notes. The build requires the dependencies configured by the project to be available.
 
 The internal world restore system is based on zipping and unzipping maps which can become
 heavy if you are still making use of HDDs and you do not have a decent CPU, for a better

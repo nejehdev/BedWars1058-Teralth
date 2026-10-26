@@ -29,6 +29,7 @@ import com.andrei1058.bedwars.api.events.spectator.SpectatorFirstPersonLeaveEven
 import com.andrei1058.bedwars.api.events.spectator.SpectatorTeleportToPlayerEvent;
 import com.andrei1058.bedwars.api.language.Messages;
 import com.andrei1058.bedwars.arena.Arena;
+import com.andrei1058.bedwars.support.papi.SupportPAPI;
 import com.andrei1058.bedwars.configuration.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -48,6 +49,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
@@ -84,13 +86,50 @@ public class SpectatorListeners implements Listener {
     public void onSpectatorInventoryClose(InventoryCloseEvent e) {
         Player p = (Player) e.getPlayer();
         TeleporterGUI.closeGUI(p);
+        SpectatorItemsGUI.close(p);
     }
 
     @EventHandler
     public void onSpectatorClick(InventoryClickEvent e) {
         if (e.getWhoClicked().getGameMode() == GameMode.SPECTATOR) {
-            e.setCancelled(true);
-            return;
+            Player spectator = (Player) e.getWhoClicked();
+            IArena arena = Arena.getArenaByPlayer(spectator);
+            Inventory commandInventory = SpectatorItemsGUI.getInventory(spectator);
+            if (commandInventory == e.getView().getTopInventory()
+                    && e.getClickedInventory() == e.getView().getTopInventory()) {
+                e.setCancelled(true);
+                ItemStack commandItem = e.getCurrentItem();
+                if (arena != null && arena.isSpectator(spectator)
+                        && commandItem != null && nms.isCustomBedWarsItem(commandItem)) {
+                    String[] commandData = nms.getCustomData(commandItem).split("_", 2);
+                    if (commandData.length == 2 && "RUNCOMMAND".equals(commandData[0])) {
+                        String command = SupportPAPI.getSupportPAPI().replace(spectator, commandData[1]);
+                        spectator.closeInventory();
+                        Bukkit.getScheduler().runTask(BedWars.plugin,
+                                () -> Bukkit.dispatchCommand(spectator, command));
+                    }
+                }
+                return;
+            }
+            boolean isTeleporterInventory = TeleporterGUI.getRefresh().get(spectator) == e.getView().getTopInventory()
+                    && e.getClickedInventory() == e.getView().getTopInventory();
+            if (!isTeleporterInventory) {
+                ItemStack clicked = e.getCurrentItem();
+                if (arena != null && arena.isSpectator(spectator)
+                        && e.getClickedInventory() == e.getView().getBottomInventory()
+                        && clicked != null && nms.isCustomBedWarsItem(clicked)) {
+                    String[] commandData = nms.getCustomData(clicked).split("_", 2);
+                    if (commandData.length == 2 && "RUNCOMMAND".equals(commandData[0])) {
+                        e.setCancelled(true);
+                        String command = SupportPAPI.getSupportPAPI().replace(spectator, commandData[1]);
+                        Bukkit.getScheduler().runTask(BedWars.plugin,
+                                () -> Bukkit.dispatchCommand(spectator, command));
+                        return;
+                    }
+                }
+                e.setCancelled(true);
+                return;
+            }
         }
         if (e.getCurrentItem() == null) return;
         ItemStack i = e.getCurrentItem();
@@ -246,10 +285,6 @@ public class SpectatorListeners implements Listener {
             }
         } else if (e.getDamager() instanceof Player) {
             damager = (Player) e.getDamager();
-            if (a.getRespawnSessions().containsKey(damager)) {
-                e.setCancelled(true);
-                return;
-            }
         } else if (e.getDamager() instanceof TNTPrimed) {
             TNTPrimed tnt = (TNTPrimed) e.getDamager();
             if (tnt.getSource() instanceof Player) {
@@ -257,6 +292,10 @@ public class SpectatorListeners implements Listener {
             }
         }
         if (damager == null) return;
+        if (a.getRespawnSessions().containsKey(damager)) {
+            e.setCancelled(true);
+            return;
+        }
         if (a.isSpectator(damager)) {
             e.setCancelled(true);
         }

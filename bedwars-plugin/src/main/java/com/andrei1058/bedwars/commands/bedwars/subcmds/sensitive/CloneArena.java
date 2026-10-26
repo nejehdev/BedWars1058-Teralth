@@ -26,6 +26,7 @@ import com.andrei1058.bedwars.api.command.SubCommand;
 import com.andrei1058.bedwars.arena.Arena;
 import com.andrei1058.bedwars.arena.Misc;
 import com.andrei1058.bedwars.arena.SetupSession;
+import com.andrei1058.bedwars.maprestore.internal.InternalAdapter;
 import com.andrei1058.bedwars.commands.bedwars.MainCommand;
 import com.andrei1058.bedwars.configuration.Permissions;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -34,6 +35,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.io.IOException;
@@ -71,7 +73,7 @@ public class CloneArena extends SubCommand {
             p.sendMessage("§c▪ §7" + args[0] + " doesn't exist!");
             return true;
         }
-        if (BedWars.getAPI().getRestoreAdapter().isWorld(args[1]) && yml2.exists()) {
+        if (BedWars.getAPI().getRestoreAdapter().isWorld(args[1]) || yml2.exists()) {
             p.sendMessage("§c▪ §7" + args[1] + " already exist!");
             return true;
         }
@@ -84,15 +86,60 @@ public class CloneArena extends SubCommand {
             return true;
         }
         BedWars.getAPI().getRestoreAdapter().cloneArena(args[0], args[1]);
-        if (yml1.exists()) {
-            try {
-                FileUtils.copyFile(yml1, yml2, true);
-            } catch (IOException e) {
-                e.printStackTrace();
-                p.sendMessage("§c▪ §7An error occurred while copying the map's config. Check the console.");
+        p.sendMessage("§e▪ §7Cloning map files...");
+
+        new BukkitRunnable() {
+            private int attempts;
+            private int readyChecks;
+
+            @Override
+            public void run() {
+                attempts++;
+                if (InternalAdapter.isCloningWorld(args[1])) {
+                    if (attempts >= 120) {
+                        cancel();
+                        plugin.getLogger().severe("Timed out while cloning arena world " + args[1] + ".");
+                        p.sendMessage("§c▪ §7The world clone did not finish. Check the console before retrying.");
+                    }
+                    return;
+                }
+                if (InternalAdapter.didWorldCloneFail(args[1])) {
+                    cancel();
+                    InternalAdapter.clearWorldCloneFailure(args[1]);
+                    p.sendMessage("§c▪ §7The world clone failed. Check the console before retrying.");
+                    return;
+                }
+                if (BedWars.getAPI().getRestoreAdapter().isWorld(args[1])) {
+                    if (!(BedWars.getAPI().getRestoreAdapter() instanceof InternalAdapter) && ++readyChecks < 3) {
+                        if (attempts >= 120) {
+                            cancel();
+                            plugin.getLogger().severe("Timed out while waiting for the cloned arena world " + args[1] + " to become available.");
+                            p.sendMessage("§c▪ §7The world clone did not finish. Check the console before retrying.");
+                        }
+                        return;
+                    }
+                    cancel();
+                    try {
+                        FileUtils.copyFile(yml1, yml2, true);
+                    } catch (IOException e) {
+                        plugin.getLogger().severe("Could not copy arena configuration from " + args[0] + " to " + args[1] + ".");
+                        e.printStackTrace();
+                        p.sendMessage("§c▪ §7The map was cloned, but its arena config could not be copied. Check the console.");
+                        return;
+                    }
+                    p.sendMessage("§6 ▪ §7Done :D.");
+                    return;
+                } else {
+                    readyChecks = 0;
+                }
+
+                if (attempts >= 120) {
+                    cancel();
+                    plugin.getLogger().severe("Timed out while waiting for the cloned arena world " + args[1] + " to become available.");
+                    p.sendMessage("§c▪ §7The world clone did not finish. Check the console before retrying.");
+                }
             }
-        }
-        p.sendMessage("§6 ▪ §7Done :D.");
+        }.runTaskTimer(plugin, 20L, 20L);
         return true;
     }
 

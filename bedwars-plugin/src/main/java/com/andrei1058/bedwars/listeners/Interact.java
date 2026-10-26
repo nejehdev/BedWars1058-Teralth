@@ -30,6 +30,7 @@ import com.andrei1058.bedwars.arena.Arena;
 import com.andrei1058.bedwars.configuration.Sounds;
 import com.andrei1058.bedwars.shop.ShopCache;
 import com.andrei1058.bedwars.shop.listeners.InventoryListener;
+import com.andrei1058.bedwars.support.papi.SupportPAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -75,11 +76,12 @@ public class Interact implements Listener {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR) {
             ItemStack i = BedWars.nms.getItemInHand(p);
             if (!nms.isCustomBedWarsItem(i)) return;
-            final String[] customData = nms.getCustomData(i).split("_");
+            final String[] customData = nms.getCustomData(i).split("_", 2);
             if (customData.length >= 2) {
                 if (customData[0].equals("RUNCOMMAND")) {
                     e.setCancelled(true);
-                    Bukkit.getScheduler().runTask(plugin, () -> Bukkit.dispatchCommand(p, customData[1]));
+                    String command = SupportPAPI.getSupportPAPI().replace(p, customData[1]);
+                    Bukkit.getScheduler().runTask(plugin, () -> Bukkit.dispatchCommand(p, command));
                 }
             }
         }

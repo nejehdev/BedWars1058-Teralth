@@ -66,7 +66,7 @@ public class JoinListenerBungee implements Listener {
             if (reJoin != null) {
                 // If is not allowed to rejoin
                 if (!(p.hasPermission(Permissions.PERMISSION_REJOIN) || reJoin.canReJoin())) {
-                    e.disallow(PlayerLoginEvent.Result.KICK_OTHER, playerLang.m(Messages.REJOIN_DENIED));
+                    e.disallow(PlayerLoginEvent.Result.KICK_OTHER, Language.applyPlaceholders(p, playerLang.m(Messages.REJOIN_DENIED)));
                     reJoin.destroy(true);
                 }
                 // Stop here, rejoin handled. More will be handled at PlayerJoinEvent
@@ -78,7 +78,7 @@ public class JoinListenerBungee implements Listener {
 
             // check if arena is not available, time out etc.
             if (arena == null || proxyUser.isTimedOut() || status == GameState.restarting) {
-                e.disallow(PlayerLoginEvent.Result.KICK_OTHER, playerLang.m(Messages.ARENA_STATUS_RESTARTING_NAME));
+                e.disallow(PlayerLoginEvent.Result.KICK_OTHER, Language.applyPlaceholders(p, playerLang.m(Messages.ARENA_STATUS_RESTARTING_NAME)));
                 proxyUser.destroy("Time out or game unavailable at PlayerLoginEvent");
                 return;
             }
@@ -98,14 +98,14 @@ public class JoinListenerBungee implements Listener {
                             }
                         }
                         if (!canJoin) {
-                            e.disallow(PlayerLoginEvent.Result.KICK_FULL, playerLang.m(Messages.COMMAND_JOIN_DENIED_IS_FULL_OF_VIPS));
+                            e.disallow(PlayerLoginEvent.Result.KICK_FULL, Language.applyPlaceholders(p, playerLang.m(Messages.COMMAND_JOIN_DENIED_IS_FULL_OF_VIPS)));
                         }
                     }
                     break;
                 case playing:
                     // Spectator logic
                     if (!arena.isAllowSpectate()) {
-                        e.disallow(PlayerLoginEvent.Result.KICK_OTHER, playerLang.m(Messages.COMMAND_JOIN_SPECTATOR_DENIED_MSG));
+                        e.disallow(PlayerLoginEvent.Result.KICK_OTHER, Language.applyPlaceholders(p, playerLang.m(Messages.COMMAND_JOIN_SPECTATOR_DENIED_MSG)));
                     }
                     break;
                 default:
@@ -159,7 +159,7 @@ public class JoinListenerBungee implements Listener {
                     // Cache player language
                     Language.setPlayerLanguage(p.getUniqueId(), playerLang.getIso());
                 } else {
-                    p.kickPlayer(playerLang.m(Messages.REJOIN_DENIED));
+                    p.kickPlayer(Language.applyPlaceholders(p, playerLang.m(Messages.REJOIN_DENIED)));
                 }
                 // ReJoin handled, stop here
                 proxyUser.destroy("Rejoin handled. PreLoaded user no longer needed.");
@@ -172,7 +172,7 @@ public class JoinListenerBungee implements Listener {
 
             // Check if the arena is still available or request time-out etc.
             if (arena == null || proxyUser.isTimedOut() || status == GameState.restarting) {
-                p.kickPlayer(playerLang.m(Messages.ARENA_STATUS_RESTARTING_NAME));
+                p.kickPlayer(Language.applyPlaceholders(p, playerLang.m(Messages.ARENA_STATUS_RESTARTING_NAME)));
                 proxyUser.destroy("Time out or game unavailable at PlayerLoginEvent");
                 return;
             }
@@ -245,4 +245,3 @@ public class JoinListenerBungee implements Listener {
         }
     }
 }
-

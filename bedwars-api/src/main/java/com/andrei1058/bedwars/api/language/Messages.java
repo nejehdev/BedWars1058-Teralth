@@ -480,66 +480,66 @@ public class Messages {
     // DEPRECATIONS FOR REMOVAL
 
     // LOBBY TAB
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SIDEBAR_TAB_HEADER_LOBBY = FORMATTING_SB_TAB_LOBBY_HEADER;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SIDEBAR_TAB_FOOTER_LOBBY = FORMATTING_SB_TAB_LOBBY_FOOTER;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_PREFIX_LOBBY = FORMATTING_SB_TAB_LOBBY_PREFIX;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_SUFFIX_LOBBY = FORMATTING_SB_TAB_LOBBY_SUFFIX;
     // WAITING TAB
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SIDEBAR_TAB_HEADER_WAITING = FORMATTING_SB_TAB_WAITING_HEADER;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SIDEBAR_TAB_FOOTER_WAITING = FORMATTING_SB_TAB_WAITING_FOOTER;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_PREFIX_WAITING = FORMATTING_SB_TAB_WAITING_PREFIX;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_SUFFIX_WAITING = FORMATTING_SB_TAB_WAITING_SUFFIX;
     // STARTING TAB
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SIDEBAR_TAB_HEADER_STARTING = FORMATTING_SB_TAB_STARTING_HEADER;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SIDEBAR_TAB_FOOTER_STARTING = FORMATTING_SB_TAB_STARTING_FOOTER;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_PREFIX_STARTING = FORMATTING_SB_TAB_STARTING_PREFIX;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_SUFFIX_STARTING = FORMATTING_SB_TAB_STARTING_SUFFIX;
     // PLAYING TAB
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SIDEBAR_TAB_HEADER_PLAYING = FORMATTING_SB_TAB_PLAYING_HEADER;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SIDEBAR_TAB_FOOTER_PLAYING = FORMATTING_SB_TAB_PLAYING_FOOTER;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_PREFIX_PLAYING = FORMATTING_SB_TAB_PLAYING_PREFIX;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_SUFFIX_PLAYING = FORMATTING_SB_TAB_PLAYING_SUFFIX;
     // SPECTATING TAB
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SIDEBAR_TAB_HEADER_SPECTATOR = FORMATTING_SB_TAB_PLAYING_SPEC_HEADER;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SIDEBAR_TAB_FOOTER_SPECTATOR = FORMATTING_SB_TAB_PLAYING_SPEC_FOOTER;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_PREFIX_SPECTATOR = FORMATTING_SB_TAB_PLAYING_SPEC_PREFIX;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_SUFFIX_SPECTATOR = FORMATTING_SB_TAB_PLAYING_SPEC_SUFFIX;
     // RESTARTING TAB
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_PREFIX_PRESTARTING = FORMATTING_SB_TAB_RESTARTING_WIN2_PREFIX;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_PREFIX_RESTARTING = FORMATTING_SB_TAB_RESTARTING_WIN2_PREFIX;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_SUFFIX_PRESTARTING = FORMATTING_SB_TAB_RESTARTING_WIN2_SUFFIX;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SCOREBOARD_TAB_SUFFIX_RESTARTING = FORMATTING_SB_TAB_RESTARTING_WIN2_SUFFIX;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SIDEBAR_TAB_HEADER_RESTARTING = FORMATTING_SB_TAB_RESTARTING_ELM_HEADER;
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SIDEBAR_TAB_FOOTER_RESTARTING = FORMATTING_SB_TAB_PLAYING_SPEC_HEADER;
 
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SPECTATOR_TEAM = "format-spectator-team";
-    @Deprecated(forRemoval = true)
+    @Deprecated
     public static String FORMATTING_SPECTATOR_COLOR = FORMATTING_SPECTATOR_TEAM;
 }

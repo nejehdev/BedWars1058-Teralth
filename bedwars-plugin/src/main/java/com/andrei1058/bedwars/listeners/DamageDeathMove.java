@@ -53,6 +53,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
@@ -142,8 +143,9 @@ public class DamageDeathMove implements Listener {
         // projectile hit message #696, #711
         ITeam team = a.getTeam(p);
         Language lang = Language.getPlayerLanguage(damager);
-        if (lang.m(Messages.PLAYER_HIT_BOW).isEmpty()) return;
-        String message = lang.m(Messages.PLAYER_HIT_BOW)
+        String hitMessage = Language.applyPlaceholders(damager, lang.m(Messages.PLAYER_HIT_BOW));
+        if (hitMessage.isEmpty()) return;
+        String message = hitMessage
                 .replace("{amount}", new DecimalFormat("00.#").format(((Player) e.getEntity()).getHealth() - e.getFinalDamage()))
                 .replace("{TeamColor}", team.getColor().chat().toString())
                 .replace("{TeamName}", team.getDisplayName(lang))
@@ -542,6 +544,13 @@ public class DamageDeathMove implements Listener {
             if (t.isBedDestroyed()) {
                 e.setRespawnLocation(a.getSpectatorLocation());
                 a.addSpectator(e.getPlayer(), true, null);
+                Player eliminated = e.getPlayer();
+                Bukkit.getScheduler().runTask(plugin, () -> {
+                    if (eliminated.isOnline() && a.isSpectator(eliminated)) {
+                        eliminated.setGameMode(org.bukkit.GameMode.SPECTATOR);
+                        a.sendSpectatorCommandItems(eliminated);
+                    }
+                });
                 t.getMembers().remove(e.getPlayer());
                 e.getPlayer().sendMessage(getMsg(e.getPlayer(), Messages.PLAYER_DIE_ELIMINATED_CHAT));
                 if (t.getMembers().isEmpty()) {
@@ -549,7 +558,7 @@ public class DamageDeathMove implements Listener {
                     for (Player p : a.getWorld().getPlayers()) {
                         p.sendMessage(getMsg(p, Messages.TEAM_ELIMINATED_CHAT).replace("{TeamColor}", t.getColor().chat().toString()).replace("{TeamName}", t.getDisplayName(Language.getPlayerLanguage(p))));
                     }
-                    Bukkit.getScheduler().runTaskLater(plugin, a::checkWinner, 40L);
+                    a.checkWinner();
                 }
             } else {
                 //respawn session
@@ -557,6 +566,21 @@ public class DamageDeathMove implements Listener {
                 if (respawnTime > 1) {
                     e.setRespawnLocation(a.getReSpawnLocation());
                     a.startReSpawnSession(e.getPlayer(), respawnTime);
+                    Player respawning = e.getPlayer();
+                    Bukkit.getScheduler().runTask(plugin, () -> {
+                        if (!respawning.isOnline() || !a.getRespawnSessions().containsKey(respawning)) return;
+                        respawning.setGameMode(org.bukkit.GameMode.ADVENTURE);
+                        respawning.setAllowFlight(true);
+                        respawning.setFlying(true);
+                        respawning.addPotionEffect(new PotionEffect(
+                                PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, false));
+                        nms.setCollide(respawning, a, false);
+                        for (Player viewer : a.getWorld().getPlayers()) {
+                            if (viewer != respawning) {
+                                nms.spigotHidePlayer(respawning, viewer);
+                            }
+                        }
+                    });
                 } else {
                     // instant respawn configuration
                     e.setRespawnLocation(t.getSpawn());

@@ -26,6 +26,7 @@ import com.andrei1058.bedwars.api.arena.shop.IBuyItem;
 import com.andrei1058.bedwars.api.arena.team.TeamEnchant;
 import com.andrei1058.bedwars.api.configuration.ConfigPath;
 import com.andrei1058.bedwars.configuration.Sounds;
+import com.andrei1058.bedwars.support.papi.SupportPAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -177,6 +178,11 @@ public class BuyItem implements IBuyItem {
     public void give(Player player, IArena arena) {
 
         ItemStack i = itemStack.clone();
+        ItemMeta configuredMeta = i.getItemMeta();
+        if (configuredMeta != null && configuredMeta.hasDisplayName()) {
+            configuredMeta.setDisplayName(SupportPAPI.getSupportPAPI().replace(player, configuredMeta.getDisplayName()));
+            i.setItemMeta(configuredMeta);
+        }
         BedWars.debug("Giving BuyItem: " + getUpgradeIdentifier() + " to: " + player.getName());
 
         if (autoEquip && nms.isArmor(itemStack)) {

@@ -403,6 +403,7 @@ public class BedWars extends JavaPlugin {
             out.info("Hooked into PlaceholderAPI support!");
             new PAPISupport().register();
             SupportPAPI.setSupportPAPI(new SupportPAPI.withPAPI());
+            Language.setPlaceholderReplacer((player, text) -> SupportPAPI.getSupportPAPI().replace(player, text));
         }
         /*
          * Vault support

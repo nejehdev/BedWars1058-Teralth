@@ -188,6 +188,10 @@ public class Misc {
      * @param owner    in case of skull, can be null, don't worry
      */
     static ItemStack createItem(Material material, byte data, boolean enchanted, String name, List<String> lore, Player owner, @SuppressWarnings("SameParameterValue") String metaKey, String metaData) {
+        if (owner != null) {
+            name = SupportPAPI.getSupportPAPI().replace(owner, name);
+            lore = SupportPAPI.getSupportPAPI().replace(owner, lore);
+        }
         ItemStack i = new ItemStack(material, 1, data);
         ItemMeta im = i.getItemMeta();
         im.setDisplayName(name);

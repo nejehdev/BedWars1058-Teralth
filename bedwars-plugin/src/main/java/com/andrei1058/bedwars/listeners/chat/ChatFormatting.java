@@ -77,14 +77,14 @@ public class ChatFormatting implements Listener {
             // spectator chat
             if (a.isSpectator(p)) {
                 setRecipients(e, a.getSpectators());
-                e.setFormat(parsePHolders(language.m(Messages.FORMATTING_CHAT_SPECTATOR), p, null));
+                e.setFormat(parsePHolders(Language.applyPlaceholders(p, language.m(Messages.FORMATTING_CHAT_SPECTATOR)), p, null));
                 return;
             }
 
             // arena lobby chat
             if (a.getStatus() == GameState.waiting || a.getStatus() == GameState.starting) {
                 setRecipients(e, a.getPlayers());
-                e.setFormat(parsePHolders(language.m(Messages.FORMATTING_CHAT_WAITING), p, null));
+                e.setFormat(parsePHolders(Language.applyPlaceholders(p, language.m(Messages.FORMATTING_CHAT_WAITING)), p, null));
                 return;
             }
 
@@ -92,7 +92,7 @@ public class ChatFormatting implements Listener {
             String msg = e.getMessage();
 
             // shout format
-            if (isShouting(msg, language)) {
+            if (isShouting(msg, language, p)) {
                 if (!(p.hasPermission(Permissions.PERMISSION_SHOUT_COMMAND) || p.hasPermission(Permissions.PERMISSION_ALL))) {
                     e.setCancelled(true);
                     p.sendMessage(Language.getMsg(p, Messages.COMMAND_NOT_FOUND_OR_INSUFF_PERMS));
@@ -100,20 +100,20 @@ public class ChatFormatting implements Listener {
                 }
                 if (ShoutCommand.isShoutCooldown(p)) {
                     e.setCancelled(true);
-                    p.sendMessage(language.m(Messages.COMMAND_COOLDOWN)
+                    p.sendMessage(Language.applyPlaceholders(p, language.m(Messages.COMMAND_COOLDOWN))
                             .replace("{seconds}", String.valueOf(Math.round(ShoutCommand.getShoutCooldown(p))))
                     );
                     return;
                 }
                 ShoutCommand.updateShout(p);
                 setRecipients(e, a.getPlayers(), a.getSpectators());
-                msg = clearShout(msg, language);
+                msg = clearShout(msg, language, p);
                 if (msg.isEmpty()) {
                     e.setCancelled(true);
                     return;
                 }
                 e.setMessage(msg);
-                e.setFormat(parsePHolders(language.m(Messages.FORMATTING_CHAT_SHOUT), p, team));
+                e.setFormat(parsePHolders(Language.applyPlaceholders(p, language.m(Messages.FORMATTING_CHAT_SHOUT)), p, team));
                 return;
             }
 
@@ -123,12 +123,12 @@ public class ChatFormatting implements Listener {
             } else {
                 setRecipients(e, team.getMembers());
             }
-            e.setFormat(parsePHolders(language.m(Messages.FORMATTING_CHAT_TEAM), p, team));
+            e.setFormat(parsePHolders(Language.applyPlaceholders(p, language.m(Messages.FORMATTING_CHAT_TEAM)), p, team));
             return;
         }
 
         // multi arena lobby chat
-        e.setFormat(parsePHolders(language.m(Messages.FORMATTING_CHAT_LOBBY), p, null));
+        e.setFormat(parsePHolders(Language.applyPlaceholders(p, language.m(Messages.FORMATTING_CHAT_LOBBY)), p, null));
     }
 
     private static String parsePHolders(String content, Player player, @Nullable ITeam team) {
@@ -147,17 +147,18 @@ public class ChatFormatting implements Listener {
         return SupportPAPI.getSupportPAPI().replace(player, content).replace("{message}", "%2$s");
     }
 
-    private static boolean isShouting(String msg, Language lang) {
+    private static boolean isShouting(String msg, Language lang, Player player) {
         return msg.startsWith("!") || msg.startsWith("shout") ||
-                msg.startsWith("SHOUT") || msg.startsWith(lang.m(Messages.MEANING_SHOUT));
+                msg.startsWith("SHOUT") || msg.startsWith(Language.applyPlaceholders(player, lang.m(Messages.MEANING_SHOUT)));
     }
 
-    private static String clearShout(String msg, Language lang) {
+    private static String clearShout(String msg, Language lang, Player player) {
         if (msg.startsWith("!")) msg = msg.replaceFirst("!", "");
         if (msg.startsWith("SHOUT")) msg = msg.replaceFirst("SHOUT", "");
         if (msg.startsWith("shout")) msg = msg.replaceFirst("shout", "");
-        if (msg.startsWith(lang.m(Messages.MEANING_SHOUT))) {
-            msg = msg.replaceFirst(lang.m(Messages.MEANING_SHOUT), "");
+        String shout = Language.applyPlaceholders(player, lang.m(Messages.MEANING_SHOUT));
+        if (msg.startsWith(shout)) {
+            msg = msg.replaceFirst(shout, "");
         }
         return msg.trim();
     }

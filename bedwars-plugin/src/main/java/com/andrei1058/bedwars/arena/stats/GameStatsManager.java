@@ -35,7 +35,7 @@ public class GameStatsManager implements GameStatsHolder {
     }
 
     public void register(@NotNull GameStatisticProvider<?> statistic) {
-        if (statistic.getIdentifier().isBlank()) {
+        if (statistic.getIdentifier().trim().isEmpty()) {
             throw new RuntimeException("Identifier cannot be blank: "+ statistic.getClass().getName());
         }
         if (!statistic.getIdentifier().trim().equals(statistic.getIdentifier())) {

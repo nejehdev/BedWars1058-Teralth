@@ -1,0 +1,50 @@
+name: Build and publish release
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Read release version
+        id: release_version
+        shell: bash
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Set Maven project version
+        run: |
+          mvn -B -ntp versions:set \
+            -DnewVersion="${{ steps.release_version.outputs.version }}" \
+            -DprocessAllModules=true \
+            -DgenerateBackupPoms=false
+          mvn -B -ntp versions:update-child-modules -DgenerateBackupPoms=false
+
+      - name: Build plugin
+        run: mvn -B -ntp clean package -DskipTests
+
+      - name: Rename release artifact
+        run: mv bedwars-plugin/target/bedwars-plugin-${{ steps.release_version.outputs.version }}.jar bedwars-plugin/target/BedWars1058-${{ steps.release_version.outputs.version }}.jar
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: BedWars1058 ${{ github.ref_name }}
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          files: bedwars-plugin/target/BedWars1058-${{ steps.release_version.outputs.version }}.jar
