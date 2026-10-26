@@ -73,6 +73,7 @@ import com.andrei1058.bedwars.support.papi.PAPISupport;
 import com.andrei1058.bedwars.support.papi.SupportPAPI;
 import com.andrei1058.bedwars.support.party.NoParty;
 import com.andrei1058.bedwars.support.party.PAF;
+import com.andrei1058.bedwars.support.version.common.DeathAnimationSuppressor;
 import com.andrei1058.bedwars.support.party.PAFBungeecordRedisApi;
 import com.andrei1058.bedwars.support.party.PartiesAdapter;
 import com.andrei1058.bedwars.support.preloadedparty.PrePartyListener;
@@ -122,7 +123,7 @@ public class BedWars extends JavaPlugin {
     private static Chat chat = new NoChat();
     protected static Level level;
     private static Economy economy;
-    private static final String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
+    private static final String version = detectServerVersion();
     private static String lobbyWorld = "";
     private static boolean shuttingDown = false;
 
@@ -134,6 +135,18 @@ public class BedWars extends JavaPlugin {
     private boolean serverSoftwareSupport = true;
 
     private static com.andrei1058.bedwars.api.BedWars api;
+
+    private static String detectServerVersion() {
+        String[] packageParts = Bukkit.getServer().getClass().getPackage().getName().split("\\.");
+        String craftBukkitRevision = packageParts[packageParts.length - 1];
+        if (craftBukkitRevision.matches("v\\d+_\\d+_R\\d+")) {
+            return craftBukkitRevision;
+        }
+
+        String bukkitVersion = Bukkit.getBukkitVersion();
+        int buildSuffix = bukkitVersion.indexOf('-');
+        return buildSuffix < 0 ? bukkitVersion : bukkitVersion.substring(0, buildSuffix);
+    }
 
     @Override
     public void onLoad() {
@@ -148,12 +161,7 @@ public class BedWars extends JavaPlugin {
             return;
         }
 
-        try {
-            Class.forName("com.destroystokyo.paper.PaperConfig");
-            isPaper = true;
-        } catch (ClassNotFoundException e) {
-            isPaper = false;
-        }
+        isPaper = Bukkit.getName().toLowerCase(Locale.ROOT).contains("paper");
 
         plugin = this;
 
@@ -217,6 +225,7 @@ public class BedWars extends JavaPlugin {
         }
 
         nms.registerVersionListeners();
+        DeathAnimationSuppressor.start();
 
         if (!this.handleWorldAdapter()) {
             api.setRestoreAdapter(new InternalAdapter(this));
@@ -237,7 +246,7 @@ public class BedWars extends JavaPlugin {
         Bukkit.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
         // define logger
-        var out = plugin.getLogger();
+        java.util.logging.Logger out = plugin.getLogger();
 
         /* Check if lobby location is set. Required for non Bungee servers */
         if (config.getLobbyWorldName().isEmpty() && serverType != ServerType.BUNGEE) {
@@ -587,6 +596,7 @@ public class BedWars extends JavaPlugin {
 
     public void onDisable() {
         shuttingDown = true;
+        DeathAnimationSuppressor.shutdown();
         if (!serverSoftwareSupport) return;
         if (getServerType() == ServerType.BUNGEE) {
             ArenaSocket.disable();

@@ -32,6 +32,12 @@
             <version>1.14.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport</artifactId>
+            <version>4.1.97.Final</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

@@ -52,7 +52,7 @@ public class SpoilPlayerTNTFeature {
     }
 
     public static void init() {
-        var enable = BedWars.config.getBoolean(ConfigPath.GENERAL_CONFIGURATION_PERFORMANCE_SPOIL_TNT_PLAYERS);
+        boolean enable = BedWars.config.getBoolean(ConfigPath.GENERAL_CONFIGURATION_PERFORMANCE_SPOIL_TNT_PLAYERS);
         if (enable) {
             if (instance == null) {
                 instance = new SpoilPlayerTNTFeature();

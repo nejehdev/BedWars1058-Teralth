@@ -36,7 +36,7 @@ public class SidebarService implements ISidebarService {
         if (null == instance) {
             instance = new SidebarService();
 
-            var log = Bukkit.getLogger();
+            java.util.logging.Logger log = Bukkit.getLogger();
 
             int playerListRefreshInterval = config.getInt(ConfigPath.SB_CONFIG_SIDEBAR_LIST_REFRESH);
             if (playerListRefreshInterval < 1) {
@@ -102,10 +102,10 @@ public class SidebarService implements ISidebarService {
             }
             MetricsManager.appendPie("sb_header_footer_refresh_interval", () -> String.valueOf(tabHeaderFooterRefreshInterval));
 
-            var lobbySidebar = config.getBoolean(ConfigPath.SB_CONFIG_SIDEBAR_USE_LOBBY_SIDEBAR) &&
+            boolean lobbySidebar = config.getBoolean(ConfigPath.SB_CONFIG_SIDEBAR_USE_LOBBY_SIDEBAR) &&
                     BedWars.getServerType() == ServerType.MULTIARENA;
             MetricsManager.appendPie("sb_lobby_enable", () -> String.valueOf(lobbySidebar));
-            var gameSidebar = config.getBoolean(ConfigPath.SB_CONFIG_SIDEBAR_USE_GAME_SIDEBAR);
+            boolean gameSidebar = config.getBoolean(ConfigPath.SB_CONFIG_SIDEBAR_USE_GAME_SIDEBAR);
             MetricsManager.appendPie("sb_game_enable", () -> String.valueOf(gameSidebar));
 
             BedWars.registerEvents(new ScoreboardListener());

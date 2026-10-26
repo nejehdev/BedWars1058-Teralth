@@ -56,7 +56,7 @@ public class HalloweenSpecial {
      * Initialize Halloween Special.
      */
     public static void init() {
-        var enable = BedWars.config.getBoolean(ConfigPath.GENERAL_CONFIGURATION_ENABLE_HALLOWEEN);
+        boolean enable = BedWars.config.getBoolean(ConfigPath.GENERAL_CONFIGURATION_ENABLE_HALLOWEEN);
         if (enable) {
             if (INSTANCE == null && checkAvailabilityDate()) {
                 //noinspection InstantiationOfUtilityClass

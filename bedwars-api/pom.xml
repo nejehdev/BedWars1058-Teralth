@@ -17,23 +17,12 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
-            <id>commons-repo</id>
-            <url>https://repo.fusesource.com/nexus/content/repositories/releases-3rd-party/</url>
-        </repository>
-        <repository>
             <id>andrei-prod</id>
             <url>https://repo.andrei1058.com/releases</url>
         </repository>
     </repositories>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.google.common/google-collect -->
-        <dependency>
-            <groupId>com.google.common</groupId>
-            <artifactId>google-collect</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
@@ -50,7 +39,7 @@
         <dependency>
             <groupId>com.andrei1058.spigot.sidebar</groupId>
             <artifactId>sidebar-base</artifactId>
-            <version>23.2</version>
+            <version>24.2</version>
         </dependency>
     </dependencies>
     <build>

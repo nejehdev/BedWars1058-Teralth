@@ -27,6 +27,8 @@ Players waiting to respawn fly in Adventure mode while hidden and non-collidable
 
 Create and push a version tag from GitHub Desktop (for example, `v25.2.1` or `25.2.1`). The release workflow builds the Maven project with that version and publishes the plugin JAR with automatically generated release notes. The build requires the dependencies configured by the project to be available.
 
+To build locally with Java 25, run `.\build.ps1` from the repository root. The script fetches the pinned SidebarLib source, installs its modules into the local Maven repository, then builds `bedwars-plugin/target/BedWars1058-<version>.jar`. Paper is supported through PaperLib's asynchronous teleport when available; the plugin uses the regular Spigot teleport API otherwise.
+
 The internal world restore system is based on zipping and unzipping maps which can become
 heavy if you are still making use of HDDs and you do not have a decent CPU, for a better
 and faster restore system we recommend using one of the following solutions:

@@ -36,6 +36,7 @@ public class VersionCommon {
     public static BedWars api;
 
     public VersionCommon(VersionSupport versionSupport) {
+            DeathAnimationSuppressor.initialize(versionSupport.getPlugin());
             //noinspection ConstantConditions
             api = Bukkit.getServicesManager().getRegistration(BedWars.class).getProvider();
             // 9 and newer
